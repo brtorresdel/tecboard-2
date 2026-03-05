@@ -1,4 +1,5 @@
 import './App.css'
+import EventForm from './components/EventForm';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <section>
         <img src="../public/banner.png" alt="Hero Image" />
       </section>
+      <EventForm />
     </main>
   )
 }
