@@ -5,9 +5,20 @@ import Label from './Label';
 import Botao from './Botao';
 import ListaSuspensa from './ListaSuspensa';
 
-export default function EventForm({temas}) {
+export default function EventForm({temas, adicionarEvento}) {
+
+  function aoFormSubmetido (formData) {
+    const evento = {
+      capa: formData.get("capa"), 
+      tema: temas.find(item => item.id == formData.get("tema")), 
+      data: new Date(formData.get("data")), 
+      titulo: formData.get("name")
+    };
+    adicionarEvento(evento);
+  }
+
   return (
-    <form className='event-form'>
+    <form className='event-form' action={aoFormSubmetido}>
       <FormTitle texto="Preencha para criar um evento:" />
       <FormField>
         <Label htmlFor="name">Nome do evento:</Label>

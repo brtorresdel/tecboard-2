@@ -1,8 +1,8 @@
 import './App.css'
 import EventForm from './components/EventForm';
-import Tema from './components/Tema';
 import Banner from './components/Banner';
-import CardEvento from './components/CardEvento';
+import { useState } from 'react';
+import EventCards from './components/EventCards';
 
 function App() {
   const temas = [
@@ -14,13 +14,14 @@ function App() {
     {id: 6, nome: "cloud"},
   ];
 
-  const eventos = [
-    {capa: "https://raw.githubusercontent.com/viniciosneves/tecboard-assets/refs/heads/main/imagem_1.png", tema: temas[0], data: new Date(), titulo: "Mulheres no Front"},
-    {capa: "", tema: temas[0], data: new Date(), titulo: "Mulheres no front"},
-    {capa: "", tema: temas[0], data: new Date(), titulo: "Mulheres no front"},
-    {capa: "", tema: temas[0], data: new Date(), titulo: "Mulheres no front"},
-    {capa: "", tema: temas[0], data: new Date(), titulo: "Mulheres no front"}
-  ]
+  const [eventos, setEventos] = useState([
+    {capa: "https://raw.githubusercontent.com/viniciosneves/tecboard-assets/refs/heads/main/imagem_1.png", tema: temas[0], data: new Date(), titulo: "Mulheres no Front"}
+  ]);
+
+  function adicionarEvento(evento) {
+    setEventos([...eventos, evento]);
+    console.log(eventos);
+  }
 
   return (
     <main>
@@ -28,17 +29,8 @@ function App() {
         <img src="../public/logo-tecboard.png" alt="Logo" />
       </header>
       <Banner />
-      <EventForm temas={temas}/>
-      {
-        temas.map(tema => {
-          return (
-            <section key={tema.id}>
-              <Tema tema={tema} />
-              <CardEvento evento={eventos[0]} />
-            </section>
-          )
-        })
-      }
+      <EventForm temas={temas} adicionarEvento={adicionarEvento}/>
+      <EventCards temas={temas} eventos={eventos} />
     </main>
   )
 }
